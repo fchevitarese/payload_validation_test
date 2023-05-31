@@ -1,11 +1,6 @@
 import pytest
-from marshmallow import ValidationError
 
-from schemas.apolice_schema import Payload1Schema, Payload2Schema
-from pytest_mock import mocker
-
-from app import app, handle_payload
-from tasks import validate_car_payload, validate_house_payload
+from app import app
 
 
 @pytest.fixture
@@ -16,7 +11,6 @@ def client():
 def test_handle_payload_with_valid_house_payload(client, mocker):
     mock_queues = mocker.patch("app.queues")
     mock_q = mock_queues.get.return_value
-    mock_job = mock_q.enqueue.return_value
 
     payload = {
         "produto": 111,
@@ -39,7 +33,7 @@ def test_handle_payload_with_valid_house_payload(client, mocker):
 def test_handle_payload_with_valid_car_payload(client, mocker):
     mock_queues = mocker.patch("app.queues")
     mock_q = mock_queues.get.return_value
-    mock_job = mock_q.enqueue.return_value
+
     payload = {
         "produto": 111,
         "item": {"placa": "ABC1234", "chassis": 123213, "modelo": "PORCHE"},
@@ -49,6 +43,9 @@ def test_handle_payload_with_valid_car_payload(client, mocker):
 
     assert response.status_code == 200
     assert "Payload enqueued successfully" in response.json["message"]
+
+    mock_queues.get.assert_called_once_with("car")
+    assert "Job id" in response.json["message"]
 
 
 def test_handle_payload_with_invalid_payload(client):

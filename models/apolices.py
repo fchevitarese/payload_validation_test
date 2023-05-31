@@ -6,7 +6,6 @@ from sqlalchemy import (
     ForeignKey,
 )
 from sqlalchemy.orm import relationship
-from flask_sqlalchemy import SQLAlchemy
 
 from database import db
 
