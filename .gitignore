@@ -40,3 +40,6 @@ error.log
 venv
 venv/
 __pypackages__/
+instance/
+Pipfile.lock
+pytest_cache/

@@ -1,0 +1,57 @@
+version: "3.3"
+services:
+  web:
+    image: too_seguros:dev
+    build:
+      context: .
+      args:
+        release: dev
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 5000:5000
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:3.2.10
+    volumes:
+      - redis-data:/data
+    ports:
+      - 6379:6379
+
+  worker_house:
+    image: too_seguros:dev
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - redis
+    command: rq worker --url redis://redis:6379/ house_payload
+    links:
+      - redis
+
+  worker_car:
+    image: too_seguros:dev
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - redis
+    command: rq worker --url redis://redis:6379/ car_payload
+    links:
+      - redis
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=default:redis:6379:0,sessions:redis:6379:1,broker:redis:6379:2
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
+
+networks:
+  default:
+    driver: bridge
