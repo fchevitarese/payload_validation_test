@@ -69,13 +69,12 @@ The test is using
 # To run the project
 Just run docker-compose up and the webapp will be up and running with the redis server which provides our queues and workers that consume our queues.
 
-Here are some examples of POSTS based on the explanation of the test:
+Here are some examples of POSTS based on the explanation of the test that you can either run at the terminal or import in Postman:
 
 # Car Payload
 ```
 curl --location 'http://localhost:5000/payload' \
 --header 'Content-Type: application/json' \
---header 'Cookie: csrftoken=00tvxuk7E8mJs6Lnuh5b7qSU0W9qhYAt' \
 --data '{
     "produto": "999",
     "item":{
@@ -94,7 +93,6 @@ curl --location 'http://localhost:5000/payload' \
 ```
 curl --location 'http://localhost:5000/payload' \
 --header 'Content-Type: application/json' \
---header 'Cookie: csrftoken=00tvxuk7E8mJs6Lnuh5b7qSU0W9qhYAt' \
 --data '{
     "produto": 222,
     "item":{
