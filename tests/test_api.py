@@ -10,7 +10,6 @@ def client():
 
 def test_handle_payload_with_valid_house_payload(client, mocker):
     mock_queues = mocker.patch("app.queues")
-    mock_q = mock_queues.get.return_value
 
     payload = {
         "produto": 111,
@@ -32,7 +31,6 @@ def test_handle_payload_with_valid_house_payload(client, mocker):
 
 def test_handle_payload_with_valid_car_payload(client, mocker):
     mock_queues = mocker.patch("app.queues")
-    mock_q = mock_queues.get.return_value
 
     payload = {
         "produto": 111,
