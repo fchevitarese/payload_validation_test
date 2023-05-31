@@ -1,0 +1,42 @@
+## Python
+__pycache__
+
+
+# C extensions
+*.so
+
+
+## Project
+
+
+## OS
+.DS_Store
+._*
+
+
+## Editors and IDEs
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+.idea/
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+.buildpath
+.project
+.settings
+.pydevproject
+.vscode/*
+.serverless/
+node_modules/
+Pipfile*
+deploy/*
+access.log
+error.log
+venv
+venv/
+__pypackages__/
